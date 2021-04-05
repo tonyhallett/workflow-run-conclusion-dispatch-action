@@ -1,7 +1,7 @@
 {
-  "name": "typescript-action",
-  "version": "0.0.0",
-  "description": "TypeScript template action",
+  "name": "workflow-run-conclusion-dispatch-action",
+  "version": "1.0.0",
+  "description": "Workflow run to repository dispatch. Event is `${workflowName} - ${conclusion}`, client_payload is the workflow run payload.",
   "main": "lib/main.js",
   "scripts": {
     "build": "tsc",
@@ -20,7 +20,12 @@
   },
   "keywords": [
     "actions",
-    "node"
+    "node",
+    "workflow",
+    "workflow_run",
+    "repository",
+    "dispatch",
+    "repository_dispatch"
   ],
   "author": "tony hallett",
   "license": "MIT",
