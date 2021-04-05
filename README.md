@@ -20,7 +20,7 @@ jobs:
     runs-on: windows-2019
     steps:
       - name: repo dispatch
-        uses: tonyhallett/workflow-run-conclusion-dispatch-action@main
+        uses: tonyhallett/workflow-run-conclusion-dispatch-action@v1.0.0
         with:
             GITHUB_PAT: ${{ secrets.PAT }}
 ```
