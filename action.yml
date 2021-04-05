@@ -1,11 +1,10 @@
-name: 'Your name here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: 'Workflow run conclusion dispatch action'
+description: 'For use in a workflow run.  Create a dispatch event to be used in a repository_dispatch workflow. Event is `${workflowName} - ${conclusion}` and client_payload is the workflow run payload.'
+author: 'Tony Hallett'
 inputs:
-  milliseconds: # change this
+  GITHUB_PAT:
     required: true
-    description: 'input description here'
-    default: 'default value if applicable'
+    description: 'Github Personal Access Token - https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token'
 runs:
   using: 'node12'
   main: 'dist/index.js'
