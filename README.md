@@ -1,105 +1,38 @@
-<p align="center">
-  <a href="https://github.com/actions/typescript-action/actions"><img alt="typescript-action status" src="https://github.com/actions/typescript-action/workflows/build-test/badge.svg"></a>
-</p>
+# About
 
-# Create a JavaScript Action using TypeScript
+This action is to be used with the workflow_run event.  It allows for a finer grained response to a workflow run.
+A workflow run that reacts to a workflow run can only filter by activity types completed and requested and not by the conclusion state.
+This action will create a repository_dispatch event with an event type that includes the conclusion and has the original payload.  By using this action there is no need for conditionals in a workflow run.
 
-Use this template to bootstrap the creation of a TypeScript action.:rocket:
+The event type is ${workflowName} - ${conclusion} and client_payload is the workflow run payload.
 
-This template includes compilation support, tests, a validation workflow, publishing, and versioning guidance.  
-
-If you are new, there's also a simpler introduction.  See the [Hello World JavaScript Action](https://github.com/actions/hello-world-javascript-action)
-
-## Create an action from this template
-
-Click the `Use this Template` and provide the new repo details for your action
-
-## Code in Main
-
-> First, you'll need to have a reasonably modern version of `node` handy. This won't work with versions older than 9, for instance.
-
-Install the dependencies  
-```bash
-$ npm install
+# Example
 ```
+name: Repository dispatch of AWorkflow
+on:
+  workflow_run:
+    workflows: [AWorkflow]
+    types: [completed]
 
-Build the typescript and package it for distribution
-```bash
-$ npm run build && npm run package
+jobs:
+  workflow-dispatch:
+    name: repo dispatch event with conclusion 
+    runs-on: windows-2019
+    steps:
+      - name: repo dispatch
+        uses: tonyhallett/workflow-run-conclusion-dispatch-action@main
+        with:
+            GITHUB_PAT: ${{ secrets.PAT }}
 ```
-
-Run the tests :heavy_check_mark:  
-```bash
-$ npm test
-
- PASS  ./index.test.js
-  ✓ throws invalid number (3ms)
-  ✓ wait 500 ms (504ms)
-  ✓ test runs (95ms)
-
-...
+and handling when successful (the repository dispatch)
 ```
+name: AWorkflow - success
+on:
+  repository_dispatch:
+    types: [AWorkflow - success]
 
-## Change action.yml
-
-The action.yml contains defines the inputs and output for your action.
-
-Update the action.yml with your name, description, inputs and outputs for your action.
-
-See the [documentation](https://help.github.com/en/articles/metadata-syntax-for-github-actions)
-
-## Change the Code
-
-Most toolkit and CI/CD operations involve async operations so the action is run in an async function.
-
-```javascript
-import * as core from '@actions/core';
-...
-
-async function run() {
-  try { 
-      ...
-  } 
-  catch (error) {
-    core.setFailed(error.message);
-  }
-}
-
-run()
+jobs:
+  do-something-with-payload:
+    # create a step that uses github.event.client_payload
+    
 ```
-
-See the [toolkit documentation](https://github.com/actions/toolkit/blob/master/README.md#packages) for the various packages.
-
-## Publish to a distribution branch
-
-Actions are run from GitHub repos so we will checkin the packed dist folder. 
-
-Then run [ncc](https://github.com/zeit/ncc) and push the results:
-```bash
-$ npm run package
-$ git add dist
-$ git commit -a -m "prod dependencies"
-$ git push origin releases/v1
-```
-
-Note: We recommend using the `--license` option for ncc, which will create a license file for all of the production node modules used in your project.
-
-Your action is now published! :rocket: 
-
-See the [versioning documentation](https://github.com/actions/toolkit/blob/master/docs/action-versioning.md)
-
-## Validate
-
-You can now validate the action by referencing `./` in a workflow in your repo (see [test.yml](.github/workflows/test.yml))
-
-```yaml
-uses: ./
-with:
-  milliseconds: 1000
-```
-
-See the [actions tab](https://github.com/actions/typescript-action/actions) for runs of this action! :rocket:
-
-## Usage:
-
-After testing you can [create a v1 tag](https://github.com/actions/toolkit/blob/master/docs/action-versioning.md) to reference the stable and latest V1 action
