@@ -5,7 +5,7 @@
   "main": "lib/main.js",
   "scripts": {
     "build": "tsc",
-    "prebuild":"npm run delete",
+    "prebuild": "npm run delete",
     "delete": "del-cli --force ./dist",
     "format": "prettier --write **/*.ts",
     "format-check": "prettier --check **/*.ts",
@@ -30,7 +30,7 @@
   "author": "tony hallett",
   "license": "MIT",
   "dependencies": {
-    "@tonyhallett/github-actions": "^1.0.0"
+    "@tonyhallett/github-actions": "^1.0.3"
   },
   "devDependencies": {
     "@types/jest": "^26.0.22",
