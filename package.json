@@ -1,6 +1,6 @@
 {
   "name": "workflow-run-conclusion-dispatch-action",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Workflow run to repository dispatch. Event is `${workflowName} - ${conclusion}`, client_payload is the workflow run payload.",
   "main": "lib/main.js",
   "scripts": {
@@ -30,7 +30,7 @@
   "author": "tony hallett",
   "license": "MIT",
   "dependencies": {
-    "@tonyhallett/github-actions": "^1.2.1"
+    "@tonyhallett/github-actions": "^1.4.1"
   },
   "devDependencies": {
     "@types/jest": "^26.0.22",

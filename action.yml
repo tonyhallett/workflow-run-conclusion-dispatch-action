@@ -1,10 +1,13 @@
 name: 'Workflow run conclusion dispatch action'
-description: 'Workflow run to repository dispatch. Event is `${workflowName} - ${conclusion}`, client_payload is the workflow run payload.'
+description: 'Workflow run to repository dispatch. Event is `${workflowName} - ${event (optional)} - ${conclusion}`, client_payload is the workflow run payload.'
 author: 'Tony Hallett'
 inputs:
   GITHUB_PAT:
     required: true
     description: 'Github Personal Access Token - https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token'
+  eventNameInEventType:
+    required: false
+    description: set to true to include workflow_run.event in the event name.  Defaultst to false
 runs:
   using: 'node12'
   main: 'dist/index.js'
